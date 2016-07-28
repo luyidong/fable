@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<style>
+body{
+    overflow: hidden;
+}
+.rightDiv{min-height:400px;margin-left:200px; }
+.leftDiv{min-height:400px;float:left;width:200px;}
+#logoDiv{float:left; width:200px;}
+.hostList label{float:left;width:200px;overflow:hidden;}
+
+
+</style>
+</head>
+</head>
+<body>
+<div id="header">
+	<div id="logoDiv"><img src="/static/reboot.jpg" >
+	</div>
+        <ul class="nav nav-pills" role="tablist">
+          <li role="presentation" class="active"><a href="#">baidu</a></li>
+          <li role="presentation"><a href="#">批量执行</a></li>
+          <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              监控 <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li role="presentation"><a href="/static/host.html">host</a></li>
+                <li role="presentation"><a href="#">redis</a></li>
+                <li role="presentation"><a href="#">memcache</a></li>
+                <li role="presentation"><a href="#">mysql</a></li>
+            </ul>
+          </li>
+          <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              主机管理 <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li role="presentation"><a href="#">机房</a></li>
+                <li role="presentation"><a href="#">Profile</a></li>
+                <li role="presentation"><a href="#">Profile</a></li>
+            </ul>
+          </li>
+          
+            <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              服务 <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li role="presentation"><a href="#">nginx</a></li>
+                <li role="presentation"><a href="#">api</a></li>
+                <li role="presentation"><a href="#">Profile</a></li>
+            </ul>
+          </li>
+          </li>
+           <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              版本发布 <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li role="presentation"><a href="#">nginx</a></li>
+                <li role="presentation"><a href="#">api</a></li>
+                <li role="presentation"><a href="#">Profile</a></li>
+            </ul>
+          </li>
+          <li role="presentation"><a href="#">域名管理</a></li>
+        </ul>
+
+</div><!--header-->
+<div>
+    
+    <ol class="breadcrumb">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">主机</a></li>
+      <li class="active">localhost</li>
+    </ol>
+
+</div>
+<div id="main">
+	<div class="leftDiv">
+        <div class="sidebar-menu">
+            <a href="#userMeun" class="nav-header menu-first collapsed" data-toggle="collapse"><i class="icon-user-md icon-large"></i> 主机管理</a>
+            <ul id="userMeun" class="nav nav-list collapse menu-second">
+                <li><a href="#"><i class="icon-user"></i> 增加主机</a></li>
+                <li><a href="#"><i class="icon-edit"></i> 修改主机</a></li>
+                <li><a href="#"><i class="icon-trash"></i> 删除主机</a></li>
+                <li><a href="#"><i class="icon-list"></i> 主机列表</a></li>
+                
+            </ul><br>
+            <a href="#articleMenu" class="nav-header menu-first collapsed" data-toggle="collapse"><i class="icon-book icon-large"></i> 运维人员管理</a>
+            <ul id="articleMenu" class="nav nav-list collapse menu-second">
+                <li><a href="#"><i class="icon-pencil"></i> 添加人员</a></li>
+                <li><a href="#"><i class="icon-list-alt"></i> 删除人员</a></li>
+                <li><a href="#"><i class="icon-list"></i> 人员列表</a></li>
+            </ul>
+        </div>
+        
+	</div><!--leftDiv-->
+	
+	
+	<div class="rightDiv">
+       
+        <div style="width:90%;">
+
+        <div class="">
+          <div class="">
+
+	<div class="div1" style="height:260px;">
+		<div class="hostList" style="height:250px;border:1px solid #ccc;padding-left:10px;"> 
+			机器列表:	<a href="javascript:return false;" onclick='selectAll("client");'>全选</a><br>
+			<label>
+				<input type='checkbox' name='client' value='reboot1'>reboot1
+			</label>
+			<label>
+				<input type='checkbox' name='client' value='reboot2'>reboot2
+			</label>
+			<label>
+				<input type='checkbox' name='client' value='reboot3'>reboot3
+			</label>
+		</div>
+
+		<div style="clear:both;"></div>
+	</div>
+
+
+
+	<div class="div2" style="width:700px;">
+				<input type="text" class="form-control" name='cmd'  placeholder="   输入要执行的命令" id="ipt_cmd" value="" style="width:600px;display:inline;">
+				<button id="btn_submit" class="btn btn-success" type="button">执行！</button>
+	</div>
+
+
+	<div class="resRight" style="margin-top:20px;border:1px solid #CCCCCC;padding-left:10px;">
+		<div ><label>【任务分发结果】</label></div>
+        <div id="resDiv">
+        </div>
+		<div ><label>【命令执行结果】</label></div>
+        <div id="cnt">
+        </div>
+	</div>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+
+	</div><!--rightDiv-->
+</div><!--content-->
+
+    <div class="footer-tools">
+            <a href="javascript:scroll(0,0)" mce_href="javascript:scroll(0,0)">返回顶部</a>
+    </div>
+
+
+</body>
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="http://cdn.hcharts.cn/highcharts/4.0.1/highcharts.js"></script>
+<script>
+
+	//这个是全局的定时器。
+	var timeout ;
+
+
+
+
+	function selectAll(n){
+		var a = document.getElementsByName(n);
+		if(a[0].checked){
+			for(var i=0; i<a.length; i++){
+				if (a[i].name == n) a[i].checked = false;
+			}
+		}else{
+			for(var i=0; i<a.length; i++){
+				if (a[i].name == n) a[i].checked = true;
+			}
+		}
+	}
+
+
+    function next(i, hostLen){
+        var param={ taskid:i };
+	$.getJSON('/cmdreturns', param,  function(data){
+		//console.dir(data);
+		//如果返回的结果数和 之前选择的机器数相同。则认为完成，取消定时器。
+		if(data.length == hostLen){
+			clearInterval(timeout);
+		}
+
+		var htm=['<table class="table table-bordered">'];
+		htm.push('<tr><td>host</td><td>完成时间</td><td>状态</td><td>执行结果</td></tr>');
+		for(var i=0,len=data.length; i<len; i++){
+			htm.push('<tr>');
+			htm.push('<td>'+data[i][0]+'</td>');
+			htm.push('<td>'+data[i][1]+'</td>');
+                        htm.push('<td>'+data[i][2]+'</td>');
+                        htm.push('<td>'+data[i][3]+'</td>');
+			htm.push('</tr>');
+		}
+		htm.push('</table>');
+		$('#cnt').html(htm.join(''));
+	}); 
+    };
+   
+
+
+	$("#btn_submit").on('click', function(){
+		var param = {
+			cmd: $('#ipt_cmd').val()
+		}
+		var chks = $('.hostList input:checkbox:checked');
+		var _arr=[];
+		for(var i=0,len=chks.length; i<len; i++){
+			_arr.push(chks[i].value) ;
+		}
+		param.client = _arr.join(",");
+		$.post('/scmd', param, function(data){
+			$("#resDiv").html( "&nbsp;&nbsp;&nbsp;&nbsp;命令:"+data.cmd+"<br>&nbsp;&nbsp;&nbsp;&nbsp;"+data.output);
+			//先清空之前的定时器
+			if(timeout){clearInterval(timeout)};
+			//再设置新的定时器，去定时获取任务的执行结果。
+			timeout = setInterval(function(){
+				next(data.taskid, chks.length);
+			},4000);
+
+			//清空显示结果的区域
+			$('#cnt').html("");
+		}, 'json');
+
+	});
+
+
+
+
+
+</script>
+
+
+</html>
+
+
+
+
+

@@ -1,0 +1,54 @@
+<html>
+<head>
+	<meta http-equiv=Content-Type content="text/html;charset=utf-8">
+	<title>jquery-ajax</title>
+</head>
+<body>
+        <input type='button' id='btn_nextPage' value="下一页">
+        <input type='button' id='btn_onPage' value="上一页">
+	<div id="cnt">
+	</div>
+        <script type="text/javascript" src="/static/js/jquery-1.8.3.min.js"></script>
+	<script>
+    var i = 1	
+    $('#btn_nextPage').on('click',function(){  
+         if ( i < 2 ){
+             i ++;
+             next(i);
+         }
+         else{
+             alert("没有第" + i + "页");
+         }
+    });
+
+    $('#btn_onPage').on('click',function(){  
+         if ( i > 1 ){
+             i --;
+             next(i);
+         }
+         else{
+             alert("第" + i + "页");
+         }
+    });
+
+    function next(i){
+        var param={ page:i };
+	$.getJSON('/list', param,  function(data){
+		console.dir(data);
+		var htm=['<table border=1>'];
+		htm.push('<tr><td>id</td><td>标题</td></tr>');
+		for(var i=0,len=data.length; i<len; i++){
+			htm.push('<tr>');
+			htm.push('<td>'+data[i]['id']+'</td>');
+			htm.push('<td>'+data[i]['cnt']+'</td>');
+			htm.push('</tr>');
+		}
+		htm.push('</table>');
+		$('#cnt').html(htm.join(''));
+	}); 
+    };
+    next(i)
+    </script>
+
+</body>
+</html>

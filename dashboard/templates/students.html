@@ -1,0 +1,63 @@
+<head>
+<title>Reboot!</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/united/bootstrap.min.css" rel="stylesheet">
+        <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/static/js/jquery-1.8.3.min.js"></script>
+</head>
+<table>
+<h1>{{ sql }}</h1>
+{% for stu in students %}
+<form method='post'>
+<tr>
+    <td>{{ stu[0] }}</td>
+    <td><input type='text' name="username" value='{{ stu[1] }}'/></td>
+    <td><input type='text' name="login_name" value='{{ stu[2] }}'/></td>
+    <td><input type="hidden" name="id" value="{{ stu[0] }}"/></td>
+    <td><input type="submit" name="del" value="删！"/></td>
+    <td><input type="submit" name="mod" value="改！"/></td>
+</tr>
+</form>
+{% endfor %}
+<!--
+是事实上是
+-->
+</table>
+<script>
+function selectAll(n){
+    var a = document.getElementsByName(n);
+    if(a[0].checked){
+        for(var i=0; i<a.length; i++){
+            if (a[i].name == n) a[i].checked = false;
+        }
+    }else{
+        for(var i=0; i<a.length; i++){
+            if (a[i].name == n) a[i].checked = true;
+        }
+    }
+}
+</script>
+<table>
+<form>
+    <input type='button' name='select' onclick='selectAll("client")' value='SelectAll'><br>
+    <input type='checkbox' name='client' value='fable'>fable<br>
+    <input type='checkbox' name='client' value='fable'>fable<br>
+    <input type='checkbox' name='client' value='fable'>fable<br>
+</form>
+</table>
+
+<div class="row">
+  <div class="col-lg-6">
+    <div class="input-group">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Go!</button>
+      </span>
+      <input type="text" class="form-control">
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+<form method='post'>
+name: <input type="text" name="username"/> </br>
+login: <input type="text" name="login_name"/> </br>
+<input type="submit" value="插！">
+</form>
+

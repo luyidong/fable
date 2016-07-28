@@ -1,0 +1,74 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+    <script type="text/javascript" src="/static/js/jquery-1.8.3.min.js"></script> 
+    <script type="text/javascript" src="//static.hcharts.cn/highstock/highstock.js"></script> 
+    <script type="text/javascript" src="/static/js/exporting.js"></script> 
+    <script> 
+	
+$(function () {
+
+    $.getJSON('getdata?callback=?&host={{ host }}&item={{ item }}&from={{ f }}&to={{ t }}', function (data) {
+        // Create the chart
+        $('#container').highcharts('StockChart', {
+
+
+            rangeSelector : {
+                selected : 1
+            },
+
+            title : {
+                text : '{{ host }}--{{ item }}'
+            },
+
+            series : [{
+                name : '{{ host }}',
+                data : data,
+                tooltip: {
+                    valueDecimals: 1
+                }
+            }]
+        });
+    });
+
+});
+	
+	
+	</script> 
+<script>
+
+	var limit="0:20"
+
+	if (document.images){
+		var parselimit=limit.split(":")
+		parselimit=parselimit[0]*60+parselimit[1]*1
+	}
+
+	function beginrefresh(){
+		if (!document.images)
+			return
+		if (parselimit==1)
+			window.location.reload()
+		else{
+			parselimit-=1
+			curmin=Math.floor(parselimit/60)
+			cursec=parselimit%60
+			if (curmin!=0)
+				curtime=curmin+" min "+cursec+" sec "
+			else
+				curtime=cursec+" sec "
+				window.status=curtime
+				setTimeout("beginrefresh()",1000)
+		}
+	}
+
+	window.onload=beginrefresh
+
+</script> 
+</head> 
+<body> 
+    <h4> {{ item }} </h4>
+    <div id="container" style="min-width:700px;height:400px"></div> 
+  {{ data }} 
+</body> 
+</html>

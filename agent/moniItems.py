@@ -75,7 +75,7 @@ class mon:
         global userDefine_check_time
         global userDefine_json
         if time.time() - userDefine_check_time > 300 or userDefine_json == []:
-            url = 'http://reboot:50004/userdefine_listitem'
+            url = 'http://fable:50004/userdefine_listitem'
             try:
                 userDefine_json = json.loads(urllib.urlopen(url).read())
                 userDefine_check_time = time.time()

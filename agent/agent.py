@@ -15,9 +15,8 @@ sys.setdefaultencoding('utf8')
 import pdb #调试
 from moniItems import mon #采集模块
 
-#把..目录加入import模块的默认搜索路径中
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
-#导入Agent发送数据的函数
+
 from nbNet.nbNetFramework import sendData_mh
 
 #Agent 将会向上游的trans模块发送采集到的监控数据
@@ -31,13 +30,11 @@ exitFlag_send = 0
 
 class antsThread (threading.Thread):
     def __init__(self, name, q, ql=None, interval=None):
-        #初始化参数
         threading.Thread.__init__(self) #构造器继承
         self.name = name
         self.q = q #queue size 任务队列
         self.queueLock = ql #queue size 任务队列
         self.interval = interval
-        # sendData_mh 采用长连接，这个list用来保存可用的连接
         self.sock_l = [None]
 
     def run(self):
@@ -46,24 +43,24 @@ class antsThread (threading.Thread):
         #将数据放在任务队列中，sendjson线程负责从任务队列中取出监控数据
         #并将数据通过socket发送给trans
         if self.name.find('collect') != -1:
-            print 'Starting ',self.name,'at:',ctime()
+            #print 'Starting ',self.name,'at:',ctime()
             self.put_data()
-            print 'Exiting ',self.name,'at:',ctime()
+            #print 'Exiting ',self.name,'at:',ctime()
         elif self.name.find('sendjson') != -1:
-            print 'Starting ',self.name,'at:',ctime()
+            #print 'Starting ',self.name,'at:',ctime()
             self.get_data()
-            print 'Exiting ',self.name,'at:',ctime()
+            #print 'Exiting ',self.name,'at:',ctime()
 
 
     def put_data(self):
         #collect 进程逻辑
         m = mon()
         atime = int(time())
-        print 'put flag', exitFlag_coll
+        #print 'put flag', exitFlag_coll
         while not exitFlag_coll:
             self.queueLock.acquire()
             data = m.runAllGet()#采集系统项
-            print 'put data:',data,self.getName
+         #   print 'put data:',data,self.getName
             self.q.put(data)
             #规避采集时间间隔不准确 保证采集是self.interval秒/次
             btime = int(time())
@@ -73,7 +70,7 @@ class antsThread (threading.Thread):
     
     def get_data(self):
         #sendjson进程逻辑
-        print 'get flag',exitFlag_send
+        #print 'get flag',exitFlag_send
         while not exitFlag_send:
             self.queueLock.acquire()
             if not self.q.empty():
@@ -133,5 +130,3 @@ def main():
     
 if __name__ == "__main__":
     main()
-
-
